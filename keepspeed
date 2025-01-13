@@ -1,0 +1,19 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local humanoid = character:WaitForChild("Humanoid")
+
+local originalWalkSpeed = humanoid.WalkSpeed
+
+local function keepSpeedActive()
+    local desiredSpeed = 50
+
+    humanoid.WalkSpeed = desiredSpeed
+
+    game:GetService("RunService").RenderStepped:Connect(function()
+        if humanoid.WalkSpeed < desiredSpeed then
+            humanoid.WalkSpeed = desiredSpeed
+        end
+    end)
+end
+
+keepSpeedActive()
